@@ -3,7 +3,7 @@ class Board
     @board = []
   end
 
-  def make_cells 
+  def make_cells
     for x in (0..7)
       for y in (0..7)
         @board.push(Node.new([x, y]))
@@ -17,8 +17,8 @@ class Board
     position = node.position
     array = [[1, 2], [1, -2], [-1, 2], [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1]]
 
-    array = array.map { |elem| elem.map.with_index { |coordinate, i| coordinate + position[i]} }
-    
+    array = array.map { |elem| elem.map.with_index { |coordinate, i| coordinate + position[i] } }
+
     valid = array.select do |elem|
       elem.none? { |num| num < 0 || num > 7 }
     end
@@ -31,7 +31,7 @@ class Board
   end
 
   def connect_nodes
-    @board.each {|node| get_neighbors(node)}
+    @board.each { |node| get_neighbors(node) }
   end
 
   def bfs(start, end_pos)
@@ -48,14 +48,14 @@ class Board
         queue.push(node).uniq!
       end
 
-      index = index + 1
+      index += 1
 
       break if queue.include?(last_node)
     end
 
     queue
   end
-  
+
   def create_path(node_array)
     current_node = node_array.last
     path = [current_node]
@@ -63,7 +63,7 @@ class Board
     loop do
       current_node = current_node.previous
       path.unshift(current_node)
-      
+
       break if current_node == node_array.first
     end
 
